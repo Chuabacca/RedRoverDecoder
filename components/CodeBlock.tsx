@@ -1,32 +1,23 @@
-import { Text, View } from "react-native";
+import { Text, View } from 'react-native'
 
 export interface CodeBlockParams {
   code: string
 }
 
-export default function CodeBlock(params: CodeBlockParams) {
-  const { code } = params
+export default function CodeBlock({ code }: CodeBlockParams) {
   return (
     <View
       style={{
-        flex: 1,
+        padding: 36,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: '#f0f0f0'
+        backgroundColor: '#040036',
+        borderRadius: 8,
+        width: '80%'
       }}
     >
-      <View
-        style={{
-          padding: 36,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: '#040036',
-          borderRadius: 8,
-        }}
-      >
-        <Text style={{color: 'white', fontFamily: 'monospace'}}>{code}</Text>
-      </View>
+      <Text style={{color: 'white', fontFamily: 'Courier'}}>{code}</Text>
     </View>
-  );
+  )
 }
 

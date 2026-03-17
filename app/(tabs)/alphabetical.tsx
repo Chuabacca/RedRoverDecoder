@@ -1,6 +1,20 @@
-import CodeBlock from "@/components/CodeBlock";
+import { View } from 'react-native'
+import CodeBlock from '@/components/CodeBlock'
+import rawString from '@/view-models/rawData'
+import parser from '@/view-models/parserViewModel'
 
 
-export default function Alphabetical() {
-  return CodeBlock({code: 'alphabetical hello world'})
+export default function Functional() {
+  const result = parser({ input: rawString, sort: 'alpha' })
+  return (
+    <View style={{
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#f0f0f0'
+    }}
+    >
+      <CodeBlock code={result} />
+    </View>
+  )
 }

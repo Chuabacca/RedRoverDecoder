@@ -1,7 +1,6 @@
 import { Tabs } from 'expo-router'
-import { Image, View } from 'react-native'
+import { Image} from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { findFocusedRoute } from '@react-navigation/native'
 
 export default function TabLayout() {
   return (
