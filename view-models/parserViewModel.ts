@@ -102,8 +102,11 @@ const stringify = (
 ): string => {
   // Convert object to array for sorting if needed.
   let array: [string, Data | null][]
+  
   if (alphabetical) {
     array = Object.entries(input).sort((a, b) => (
+      // Use localeCompare to sort strings by linguistic rules rather than Unicode comparison.
+      // Sensitivity 'base' treats uppercase and accented letters as the base letter.
       a[0].localeCompare(b[0], undefined, { sensitivity: 'base'})
     ))
   } else {
