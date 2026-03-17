@@ -16,6 +16,19 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
+   ![App Screenshots](assets/screenshots.jpg)
+
+3. Test the string parsing
+
+- The core logic is located in `view-models/parserViewModel.ts`. 
+- Input strings are defined in `view-models/rawData.ts`.
+- Swap out the `inputString` assignment try out the included edge cases or add your own.
+
+4. Developer note
+
+- The error handling covers most edge cases, but one edge case that is not properly handled is a single missing closing parethesis. The string still seems to be parsed correctly, but the malformed input is not identified. I wasn't able to find an easy way to handle this without attempting a significant overhaul of the logic. There's definitely room for improvement in code readability, correctness, and organization.
+
+
 In the output, you'll find options to open the app in a
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
