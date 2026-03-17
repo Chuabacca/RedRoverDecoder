@@ -12,7 +12,15 @@ interface ParserParams {
 
 // This is the parser that a view will call to get the string to display.
   export default function parser({ string, alphabetical }: ParserParams): string {
-  const [data] = parse({ input: string })
+  if (string.length === 0) {
+    return ''
+  }
+
+  if (string[0] !== '(') {
+    throw new Error(`Expected input to start with '('.`)
+  }
+
+  const [data] = parse({ input: string, index: 1 })
 
   const result = stringify({ input: data, alphabetical})
 
@@ -23,10 +31,12 @@ interface ParserParams {
 const parse = (
   {
     input,
-    index = 0
+    index,
+    isNested = false
   }: {
     input: string,
-    index?: number
+    index: number,
+    isNested?: boolean
   }
 ): [Data, number] => {
   let i = index
@@ -37,15 +47,10 @@ const parse = (
   while (i < input.length) {
     const char = input[i]
 
-    if (i === 0) {
-      // Ensure that the string starts properly.
-      if (char !== '(') {
-        throw Error(`Expected input to start with '('.`)
-      }
-      
-    } else if (char === '(') {
-      // Handle nested data with recursive call. Write the nested object after recursion returns.
-      const [data, index] = parse({ input, index: i + 1 })
+    if (char === '(') {
+      // Handle nested data with recursive call. Write the nested object after recursion
+      // returns.
+      const [data, index] = parse({ input, index: i + 1, isNested: true})
       tempData = { ...tempData, [stringBuffer]:data }
       i = index
       stringBuffer = ''
@@ -65,7 +70,8 @@ const parse = (
       }
       
     } else if (char !== ' ') {
-      // If not a delimiter or space, treat it as part of the field name and write it to the buffer.
+      // If not a delimiter or space, treat it as part of the field name and write it to
+      // the buffer.
       stringBuffer += char
     }
 
@@ -73,9 +79,10 @@ const parse = (
     ++i
   }
 
-  // Make sure we reached the end of the string and there is nothing left over in the buffer.
-  if (i !== input.length || stringBuffer !== '') {
-    throw Error(`Parsing did not complete. Missing ')'.`)
+  // Make sure we reached the end of the string and there is nothing left over in
+  // the buffer.
+  if (i !== input.length || stringBuffer !== '' || isNested) {
+    throw new Error(`Parsing did not complete. Missing ')'.`)
   }
 
   return [tempData, i]
@@ -134,7 +141,7 @@ const validBuffer = (string: string, data: Data): boolean => {
   }
 
   if (Object.hasOwn(data, string)) {
-    throw Error('Duplicate field name found.')
+    throw new Error('Duplicate field name found.')
   }
 
   return true

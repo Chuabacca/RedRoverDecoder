@@ -1,11 +1,20 @@
 import { Text, View } from 'react-native'
 import CodeBlock from '@/components/CodeBlock'
-import rawString from '@/view-models/rawData'
+import inputString from '@/view-models/rawData'
 import parser from '@/view-models/parserViewModel'
 
 
 export default function Functional() {
-  const result = parser({ string: rawString, alphabetical: true})
+  let result = ''
+
+  try {
+    result = parser({ string: inputString, alphabetical: true})
+  } catch (error) {
+    if (error instanceof Error) {
+      result = `Error: ${error.message}`
+    }
+  }
+
   return (
     <View style={{
       flex: 1,
