@@ -13,7 +13,7 @@ export default function CodeBlock({ code }: CodeBlockParams) {
         alignItems: "center",
         backgroundColor: '#040036',
         borderRadius: 8,
-        width: '80%'
+        width: '100%'
       }}
     >
       <Text style={{color: 'white', fontFamily: 'Courier'}}>{code}</Text>

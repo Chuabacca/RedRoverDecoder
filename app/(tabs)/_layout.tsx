@@ -48,9 +48,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="functional"
+        name="default"
         options={{
-          title: 'Functional',
+          title: 'Default',
           tabBarIcon: ({focused}) => (
             <Ionicons
               name={'shapes-outline'}
