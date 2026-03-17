@@ -5,7 +5,7 @@ import parser from '@/view-models/parserViewModel'
 
 
 export default function Functional() {
-  const result = parser({ input: rawString, sort: 'func' })
+  const result = parser({ string: rawString, alphabetical: false})
   return (
     <View style={{
       flex: 1,
